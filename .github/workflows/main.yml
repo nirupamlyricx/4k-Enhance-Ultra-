@@ -1,13 +1,45 @@
+name: Build Android APK
 
-      - name: Build APK
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Capacitor
         run: |
-          npm install @capacitor/cli @capacitor/android
+          npm install
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Prepare web files
+        run: |
           mkdir -p www
           cp index.html manifest.json service-worker.js icon.svg www/
+
+      - name: Configure Capacitor
+        run: |
           npx cap init "4K Enhance Ultra" "com.nirupamlyricx.enhance" --web-dir www
           npx cap add android
           npx cap sync android
+
+      - name: Build APK
+        run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
 
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 4K-Enhance-Ultra-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
