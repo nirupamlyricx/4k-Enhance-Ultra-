@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "4K Enhance Ultra",
+  "short_name": "4K Enhance",
+  "description": "Photo enhancement studio with cinematic presets and batch processing.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05070b",
+  "theme_color": "#05070b",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
